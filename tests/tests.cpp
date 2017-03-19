@@ -1,8 +1,9 @@
 #include <gtest/gtest.h>
-#include <Graph.h>
+#include <GraphBase.h>
 #include <vector>
 #include <string>
 #include <App.h>
+#include <fstream>
 
 TEST(GraphCreate, FromMatrix) {
     string result = "0 1 \n1 0 \n";
@@ -38,13 +39,21 @@ TEST(GraphCreate, FromList) {
 
 TEST(Argument, FromMatrix)
 {
+    char *fname = (char*)"matrix.txt";
+    string outText;
+    ofstream ofs(fname);
+    ofs << "0 1" << endl;
+    ofs << "1 0" << endl;
+    ofs.close();
+
     testing::internal::CaptureStdout();
 
     App app;
     int argc = 3;
-    char *argv[] = {(char*)"", (char*)"--matrix", (char*)"c:\\data\\matrix.txt"};
+    char *argv[] = {(char*)"", (char*)"--matrix", fname};
     app.Init(&argc, argv);
+
     string output = testing::internal::GetCapturedStdout();
-//
+
     ASSERT_EQ("0 1 \n1 0 \n", output);
 }

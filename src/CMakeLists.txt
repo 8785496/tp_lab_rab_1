@@ -1,4 +1,3 @@
-set(SOURCE_FILES Graph.cpp)
-set(HEADER_FILES Graph.h App.h App.cpp)
+set(SOURCE_FILES GraphBase.cpp App.cpp)
 
-add_library(src STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(src STATIC ${SOURCE_FILES})

@@ -2,11 +2,9 @@
 #include <string>
 #include <sstream>
 
-#include "Graph.h"
+#include "GraphBase.h"
 
 using namespace std;
-
-
 
 Graph::Graph(int m, int n, int **matrix) {
     for (int i = 0; i < m; ++i) {
