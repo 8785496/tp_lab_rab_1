@@ -11,7 +11,7 @@ void App::Init(int *argc, char **argv) {
             char *fname;
             if (i + 1 < *argc)
                 // fname = argv[i + 1];
-                InitFromFile(argv[i + 1]);
+                InitFromMatrix(argv[i + 1]);
             else
                 ;//TODO Exception
             break;
@@ -28,7 +28,7 @@ void App::Init(int *argc, char **argv) {
 
 }
 
-void App::InitFromFile(char *fname) {
+void App::InitFromMatrix(char *fname) {
     int m = 0; // count rows
     ifstream ifs(fname);
     string line;
@@ -48,6 +48,10 @@ void App::InitFromFile(char *fname) {
         i++;
     }
 
-    graph = new Graph(m, m, matrix);
+    graph = new GraphWrite(m, m, matrix);
     cout << graph->ToString();
+}
+
+void App::InitFromList(char *) {
+    //TODO InitFromList
 }

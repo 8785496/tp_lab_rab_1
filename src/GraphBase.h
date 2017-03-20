@@ -1,14 +1,16 @@
 #pragma once
 #include <vector>
 #include <string>
+#include "GraphNode.h"
 
 using namespace std;
 
-class Graph {
-    vector<vector<int>> list;
+class GraphBase {
+protected:
+    //vector<vector<int>> list;
+    vector<GraphNode> list;
 public:
-    Graph(int m, int n, int **matrix);
-    Graph(vector<vector<int>> list);
-    string ToString();
+    GraphBase(int m, int n, int **matrix);
+    GraphBase(vector<vector<int>> &list);
 };
 

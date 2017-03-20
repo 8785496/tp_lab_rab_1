@@ -4,11 +4,12 @@
 #include <string>
 #include <App.h>
 #include <fstream>
+#include <GraphWrite.h>
 
 TEST(GraphCreate, FromMatrix) {
     string result = "0 1 \n1 0 \n";
     int **matrix = new int*[2] {new int[2] {0, 1}, new int[2] {1, 0}};
-    Graph graph(2, 2, matrix);
+    GraphWrite graph(2, 2, matrix);
 
     ASSERT_EQ(result, graph.ToString());
 }
@@ -32,7 +33,7 @@ TEST(GraphCreate, FromList) {
     vertexes.push_back(1);
     list.push_back(vertexes);
 
-    Graph graph(list);
+    GraphWrite graph(list);
 
     ASSERT_EQ(result, graph.ToString());
 }

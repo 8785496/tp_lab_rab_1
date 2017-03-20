@@ -1,10 +1,12 @@
 #pragma once
 #include "GraphBase.h"
+#include "GraphWrite.h"
 
 class App
 {
-    Graph *graph;
-    void InitFromFile(char *);
+    GraphWrite *graph;
+    void InitFromMatrix(char *);
+    void InitFromList(char *);
 public:
     void Init(int *argc, char **argv);
 };
