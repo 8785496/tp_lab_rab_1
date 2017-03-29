@@ -2,7 +2,7 @@
 
 #include "GraphBase.h"
 
-class GraphWrite : GraphBase
+class GraphWrite : public GraphBase
 {
 public:
     GraphWrite(int m, int n, int **matrix);

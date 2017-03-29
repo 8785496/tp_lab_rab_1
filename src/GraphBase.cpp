@@ -3,13 +3,13 @@
 #include <sstream>
 
 #include "GraphBase.h"
-#include "GraphNode.h"
+#include "NodeGraph.h"
 
 using namespace std;
 
 GraphBase::GraphBase(int m, int n, int **matrix) {
     for (int i = 0; i < m; ++i) {
-        GraphNode graphNode(i);
+        NodeGraph graphNode(i);
         vector<int> &vertexes = graphNode.GetVertexes();
 
         for (int j = 0; j < n; ++j) {
@@ -32,7 +32,7 @@ GraphBase::GraphBase(vector<vector<int>> &list) {
     auto it = list.begin();
     int i = 0;
     while(it != list.end()) {
-        GraphNode graphNode(i);
+        NodeGraph graphNode(i);
         graphNode.SetVertexes(*it);
         this->list.push_back(graphNode);
         ++it;

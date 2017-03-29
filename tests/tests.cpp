@@ -1,10 +1,8 @@
 #include <gtest/gtest.h>
 #include <GraphBase.h>
-#include <vector>
-#include <string>
 #include <App.h>
 #include <fstream>
-#include <GraphWrite.h>
+#include <GraphFind.h>
 
 TEST(GraphCreate, FromMatrix) {
     string result = "0 1 \n1 0 \n";
@@ -57,4 +55,38 @@ TEST(Argument, FromMatrix)
     string output = testing::internal::GetCapturedStdout();
 
     ASSERT_EQ("0 1 \n1 0 \n", output);
+}
+
+TEST(NodeGraph, compareWithInt)
+{
+    const int A = 3;
+    NodeGraph graphNode(A);
+
+    bool result = graphNode == A;
+    ASSERT_TRUE(result);
+}
+
+TEST(Graph, Find)
+{
+    const int M = 4;
+    int **matrix = new int*[M] {
+            new int[M] {0, 0, 1, 0},
+            new int[M] {0, 0, 0, 0},
+            new int[M] {0, 0, 0, 1},
+            new int[M] {0, 1, 0, 0}
+    };
+    GraphFind graph(M, M, matrix);
+
+    const int INDEX = 1;
+
+    vector<int> pathT;
+    pathT.push_back(0);
+    pathT.push_back(2);
+    pathT.push_back(3);
+    pathT.push_back(1);
+
+    vector<int> path;
+    int result = graph.find(INDEX, path);
+    ASSERT_EQ(result, INDEX);
+    ASSERT_EQ(path, pathT);
 }
