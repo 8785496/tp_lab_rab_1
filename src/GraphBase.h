@@ -7,8 +7,8 @@ using namespace std;
 
 class GraphBase {
 protected:
-    //vector<vector<int>> list;
-    vector<NodeGraph> list;
+    vector<vector<int>> list;
+    //vector<NodeGraph> list;
 public:
     GraphBase(int m, int n, int **matrix);
     GraphBase(vector<vector<int>> &list);

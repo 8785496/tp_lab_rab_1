@@ -20,7 +20,7 @@ string GraphWrite::ToString() {
         for (int k = 0; k < m ; ++k) {
             matrix[i][k] = 0;
         }
-        vector<int> &vertexes = list[i].GetVertexes();
+        vector<int> &vertexes = list[i]/*.GetVertexes()*/;
         for (int j = 0; j < vertexes.size(); ++j) {
             int vertex = vertexes[j];
             matrix[i][vertex] = 1;

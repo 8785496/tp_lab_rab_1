@@ -2,7 +2,7 @@
 #include <GraphBase.h>
 #include <App.h>
 #include <fstream>
-#include <GraphFind.h>
+#include <GraphDelete.h>
 
 TEST(GraphCreate, FromMatrix) {
     string result = "0 1 \n1 0 \n";
@@ -89,4 +89,30 @@ TEST(Graph, Find)
     int result = graph.find(INDEX, path);
     ASSERT_EQ(result, INDEX);
     ASSERT_EQ(path, pathT);
+}
+
+TEST(Graph, Delete)
+{
+    const int M = 4;
+    int **matrix = new int*[M] {
+            new int[M] {0, 1, 1, 1},
+            new int[M] {1, 0, 1, 1},
+            new int[M] {0, 1, 0, 1},
+            new int[M] {1, 1, 0, 0}
+    };
+    GraphDelete graph(M, M, matrix);
+
+    const int INDEX = 1;
+
+    string before = "0 1 1 1 \n1 0 1 1 \n0 1 0 1 \n1 1 0 0 \n";
+    string after = "0 1 1 \n0 0 1 \n1 0 0 \n";
+
+    string resultBefore = graph.ToString();
+
+    ASSERT_EQ(resultBefore, before);
+
+    graph.Del(INDEX);
+    string resultAfter = graph.ToString();
+
+    ASSERT_EQ(resultAfter, after);
 }

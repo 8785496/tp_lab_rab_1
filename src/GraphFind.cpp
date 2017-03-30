@@ -28,7 +28,7 @@ int GraphFind::find(int index, vector<int> &path) {
         }
 
         vector<int> vertexes;
-        vertexes = list[cur].GetVertexes();
+        vertexes = list[cur]/*.GetVertexes()*/;
         for (auto it = vertexes.begin(); it != vertexes.end(); ++it) {
             int next = *it;
             if (!visited[next]) {
