@@ -1,10 +1,11 @@
+// tests.cpp
 #include <gtest/gtest.h>
 #include <GraphBase.h>
 #include <App.h>
 #include <fstream>
-#include <GraphDelete.h>
 
-TEST(GraphCreate, FromMatrix) {
+TEST(Graph, CreateFromMatrix)
+{
     string result = "0 1 \n1 0 \n";
     int **matrix = new int*[2] {new int[2] {0, 1}, new int[2] {1, 0}};
     GraphWrite graph(2, 2, matrix);
@@ -12,7 +13,8 @@ TEST(GraphCreate, FromMatrix) {
     ASSERT_EQ(result, graph.ToString());
 }
 
-TEST(GraphCreate, FromList) {
+TEST(Graph, CreateFromList)
+{
     string result = "0 1 1 \n1 0 1 \n1 1 0 \n";
     vector<vector<int>> list;
     vector<int> vertexes;
@@ -36,7 +38,7 @@ TEST(GraphCreate, FromList) {
     ASSERT_EQ(result, graph.ToString());
 }
 
-TEST(Argument, FromMatrix)
+TEST(App, InitFromMatrix)
 {
     char *fname = (char*)"matrix.txt";
     string outText;
@@ -48,8 +50,8 @@ TEST(Argument, FromMatrix)
     testing::internal::CaptureStdout();
 
     App app;
-    int argc = 3;
-    char *argv[] = {(char*)"", (char*)"--matrix", fname};
+    int argc = 4;
+    char *argv[argc] = {(char*)"", (char*)"--matrix", fname, (char*)"--print"};
     app.Init(&argc, argv);
 
     string output = testing::internal::GetCapturedStdout();
@@ -57,13 +59,26 @@ TEST(Argument, FromMatrix)
     ASSERT_EQ("0 1 \n1 0 \n", output);
 }
 
-TEST(NodeGraph, compareWithInt)
+TEST(App, InitFromList)
 {
-    const int A = 3;
-    NodeGraph graphNode(A);
+    char *fname = (char*)"list.txt";
+    string outText;
+    ofstream ofs(fname);
+    ofs << "1 2" << endl;
+    ofs << "0 2" << endl;
+    ofs << "0 1" << endl;
+    ofs.close();
 
-    bool result = graphNode == A;
-    ASSERT_TRUE(result);
+    testing::internal::CaptureStdout();
+
+    App app;
+    int argc = 4;
+    char *argv[argc] = {(char*)"", (char*)"--list", fname, (char*)"--print"};
+    app.Init(&argc, argv);
+
+    string output = testing::internal::GetCapturedStdout();
+
+    ASSERT_EQ("0 1 1 \n1 0 1 \n1 1 0 \n", output);
 }
 
 TEST(Graph, Find)
@@ -115,4 +130,50 @@ TEST(Graph, Delete)
     string resultAfter = graph.ToString();
 
     ASSERT_EQ(resultAfter, after);
+}
+
+TEST(App, Find)
+{
+    char *fname = (char*)"matrix.txt";
+    string outText;
+    ofstream ofs(fname);
+    ofs << "0 0 1 0" << endl;
+    ofs << "0 0 0 0" << endl;
+    ofs << "0 0 0 1" << endl;
+    ofs << "0 1 0 0" << endl;
+    ofs.close();
+
+    testing::internal::CaptureStdout();
+
+    App app;
+    int argc = 5;
+    char *argv[argc] = {(char*)"", (char*)"--matrix", fname, (char*)"--find", (char*)"1"};
+    app.Init(&argc, argv);
+
+    string output = testing::internal::GetCapturedStdout();
+
+    ASSERT_EQ("1 path: 0 2 3 1 ", output);
+}
+
+TEST(App, Delete)
+{
+    char *fname = (char*)"matrix.txt";
+    string outText;
+    ofstream ofs(fname);
+    ofs << "0 1 1 1" << endl;
+    ofs << "1 0 1 1" << endl;
+    ofs << "0 1 0 1" << endl;
+    ofs << "1 1 0 0" << endl;
+    ofs.close();
+
+    testing::internal::CaptureStdout();
+
+    App app;
+    int argc = 6;
+    char *argv[argc] = {(char*)"", (char*)"--matrix", fname, (char*)"--delete", (char*)"1", (char*)"--print"};
+    app.Init(&argc, argv);
+
+    string output = testing::internal::GetCapturedStdout();
+
+    ASSERT_EQ("0 1 1 \n0 0 1 \n1 0 0 \n", output);
 }

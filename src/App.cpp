@@ -1,3 +1,4 @@
+// App.cpp
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -8,21 +9,39 @@ using namespace std;
 void App::Init(int *argc, char **argv) {
     for (int i = 0; i < *argc; ++i) {
         if (string(argv[i]) == "--matrix") {
-            char *fname;
             if (i + 1 < *argc)
-                // fname = argv[i + 1];
                 InitFromMatrix(argv[i + 1]);
             else
                 ;//TODO Exception
-            break;
         }
 
-        if (string(argv[i]) == "--input") {
-            string text;
-            while(getline(cin, text)) {
-                cout << text << endl;
-            }
-            break;
+        if (string(argv[i]) == "--list") {
+            if (i + 1 < *argc)
+                InitFromList(argv[i + 1]);
+            else
+                ;//TODO Exception
+        }
+
+        if (string(argv[i]) == "--stream") {
+            InitFromStream();
+        }
+
+        if (string(argv[i]) == "--find") {
+            if (i + 1 < *argc)
+                Find(atoi(argv[i + 1]));
+            else
+                ;//TODO Exception
+        }
+
+        if (string(argv[i]) == "--delete") {
+            if (i + 1 < *argc)
+                graph->Del(atoi(argv[i + 1]));
+            else
+                ;//TODO Exception
+        }
+
+        if (string(argv[i]) == "--print") {
+            cout << graph->ToString();
         }
     }
 
@@ -38,7 +57,7 @@ void App::InitFromMatrix(char *fname) {
     for (int k = 0; k < m; ++k)
         matrix[k] = new int[m];
 
-    int i = 0, j = 0;
+    int i = 0;
     ifs.clear();
     ifs.seekg(0);
     while (getline(ifs, line)) {
@@ -48,10 +67,63 @@ void App::InitFromMatrix(char *fname) {
         i++;
     }
 
-    graph = new GraphWrite(m, m, matrix);
-    cout << graph->ToString();
+    graph = new GraphDelete(m, m, matrix);
 }
 
-void App::InitFromList(char *) {
-    //TODO InitFromList
+void App::InitFromList(char *fname) {
+    ifstream ifs(fname);
+    string line;
+
+    vector<vector<int>> list;
+
+    while (getline(ifs, line)) {
+        vector<int> vertexes;
+
+        istringstream iss(line);
+
+        while (!iss.eof()) {
+            int a;
+            iss >> a;
+            vertexes.push_back(a);
+        }
+
+        list.push_back(vertexes);
+    }
+
+    graph = new GraphDelete(list);
 }
+
+void App::InitFromStream() {
+    string line;
+
+    vector<vector<int>> list;
+
+    while (getline(cin, line)) {
+        vector<int> vertexes;
+
+        istringstream iss(line);
+
+        while (!iss.eof()) {
+            int a;
+            iss >> a;
+            vertexes.push_back(a);
+        }
+
+        list.push_back(vertexes);
+    }
+
+    graph = new GraphDelete(list);
+}
+
+void App::Find(int index) {
+    vector<int> path;
+    int result = graph->find(index, path);
+    if (result > -1) {
+        cout << result << " path: ";
+        for(auto it = path.begin(); it != path.end(); ++it)
+            cout << *it << " ";
+    } else {
+        cout << -1;
+    }
+}
+

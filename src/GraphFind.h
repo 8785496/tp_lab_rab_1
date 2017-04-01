@@ -1,4 +1,5 @@
-#include <ostream>
+// GraphFind.h
+#pragma once
 #include "GraphWrite.h"
 
 class GraphFind : public GraphWrite

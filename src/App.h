@@ -1,12 +1,14 @@
+// App.h
 #pragma once
-#include "GraphBase.h"
-#include "GraphWrite.h"
+#include "GraphDelete.h"
 
 class App
 {
-    GraphWrite *graph;
+    GraphDelete *graph;
     void InitFromMatrix(char *);
     void InitFromList(char *);
+    void InitFromStream();
+    void Find(int);
 public:
     void Init(int *argc, char **argv);
 };

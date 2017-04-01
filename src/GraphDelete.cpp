@@ -1,6 +1,9 @@
+// GraphDelete.cpp
 #include "GraphDelete.h"
 
 GraphDelete::GraphDelete(int m, int n, int **matrix) : GraphFind(m, n, matrix) {}
+
+GraphDelete::GraphDelete(vector<vector<int>> &list) : GraphFind(list) {}
 
 void GraphDelete::Del(int index) {
     list.erase(list.begin() + index);

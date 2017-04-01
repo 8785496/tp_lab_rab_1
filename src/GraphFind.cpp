@@ -1,3 +1,4 @@
+// GraphFind.cpp
 #include "GraphFind.h"
 #include <queue>
 #include <algorithm>
@@ -28,7 +29,7 @@ int GraphFind::find(int index, vector<int> &path) {
         }
 
         vector<int> vertexes;
-        vertexes = list[cur]/*.GetVertexes()*/;
+        vertexes = list[cur];
         for (auto it = vertexes.begin(); it != vertexes.end(); ++it) {
             int next = *it;
             if (!visited[next]) {
