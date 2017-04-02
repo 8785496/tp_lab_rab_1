@@ -48,7 +48,10 @@ bool GraphBase::validateList(vector<vector<int>> &list) {
 
     for (auto it = list.begin(); it != list.end(); ++it) {
         for (auto it2 = (*it).begin(); it2 != (*it).end(); ++it2) {
-            if (*it2 > length || *it2 < 0)
+            if (*it2 >= length)
+                return false;
+
+            if (*it2 < 0)
                 return false;
         }
     }
