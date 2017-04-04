@@ -1,0 +1,38 @@
+@startuml
+
+class App {
+    - GraphDelete *graph
+    - void InitFromMatrix(char *fname)
+    - void InitFromList(char *fname)
+    - void InitFromStream()
+    - void Find(int)
+    + void Init(int *argc, char **argv)
+}
+
+class GraphBase {
+    # vector<vector<int>> list
+    # bool ValidateMatrix(int m, int n, int **matrix)
+    # bool ValidateList(vector<vector<int>> &list)
+    + GraphBase(int m, int n, int **matrix)
+    + GraphBase(vector<vector<int>> &list)
+}
+
+class GraphWrite {
+    + string ToString()
+}
+
+class GraphFind {
+    + int Find(int, vector<int> &path)
+}
+
+class GraphDelete {
+    + void Del(int index)
+}
+
+
+GraphBase <|-- GraphWrite
+GraphWrite <|-- GraphFind
+GraphFind <|-- GraphDelete
+App *- GraphDelete
+
+@enduml

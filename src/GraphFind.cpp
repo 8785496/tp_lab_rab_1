@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int GraphFind::find(int index, vector<int> &path) {
+int GraphFind::Find(int index, vector<int> &path) {
     const int M = list.size(); // количество вершин
     bool visited[M]; // массив посещенных вершин
     int parent[M]; // массив "предков" вершин

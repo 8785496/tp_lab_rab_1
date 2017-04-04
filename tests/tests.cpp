@@ -101,7 +101,7 @@ TEST(Graph, Find)
     pathT.push_back(1);
 
     vector<int> path;
-    int result = graph.find(INDEX, path);
+    int result = graph.Find(INDEX, path);
     ASSERT_EQ(result, INDEX);
     ASSERT_EQ(path, pathT);
 }

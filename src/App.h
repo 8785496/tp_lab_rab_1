@@ -11,4 +11,5 @@ class App
     void Find(int);
 public:
     void Init(int *argc, char **argv);
+    ~App();
 };

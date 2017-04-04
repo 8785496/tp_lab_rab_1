@@ -79,12 +79,14 @@ void App::InitFromList(char *fname) {
     while (getline(ifs, line)) {
         vector<int> vertexes;
 
-        istringstream iss(line);
+        if (line.length() > 0) {
+            istringstream iss(line);
 
-        while (!iss.eof()) {
-            int a;
-            iss >> a;
-            vertexes.push_back(a);
+            while (!iss.eof()) {
+                int a;
+                iss >> a;
+                vertexes.push_back(a);
+            }
         }
 
         list.push_back(vertexes);
@@ -117,7 +119,7 @@ void App::InitFromStream() {
 
 void App::Find(int index) {
     vector<int> path;
-    int result = graph->find(index, path);
+    int result = graph->Find(index, path);
     if (result > -1) {
         cout << result << " path: ";
         for(auto it = path.begin(); it != path.end(); ++it)
@@ -127,3 +129,6 @@ void App::Find(int index) {
     }
 }
 
+App::~App() {
+    delete graph;
+}
